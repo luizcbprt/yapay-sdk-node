@@ -89,10 +89,10 @@ npm install yapay-sdk-node --save
 
 # Primeiros passos
 
-[Prerequisite - Create an app (access token)](https://documentao-moip.readme.io/v2.0/reference#1-criar-um-app)
+[Prerequisite - Create an app (access token)](https://documentao-yapay.readme.io/v2.0/reference#1-criar-um-app)
 
 ```javascript
-const moip = require('moip-sdk-node').default({
+const yapay = require('yapay-sdk-node').default({
   accessToken: 'your-access-token',
   // token: 'your-token',
   // key: 'your-key',
@@ -102,8 +102,8 @@ const moip = require('moip-sdk-node').default({
 
 If you are using **import** syntax:
 ```javascript
-import moipSdk from 'moip-sdk-node'
-const moip = moipSdk({
+import yapaySdk from 'yapay-sdk-node'
+const yapay = yapaySdk({
   accessToken: 'your-access-token',
   // token: 'your-token',
   // key: 'your-key',
@@ -118,7 +118,7 @@ To authenticate using Basic authorization, you can pass a `token` and `key` as a
 ## Customers
 #### Create
 ```javascript
-moip.customer.create({
+yapay.customer.create({
     ownId: '1521656695',
     fullname: 'Jose Silva',
     email: 'jose_silva0@email.com',
@@ -151,7 +151,7 @@ moip.customer.create({
 
 #### Get
 ```javascript
-moip.customer.getOne(customerId)
+yapay.customer.getOne(customerId)
     .then((response) => {
         console.log(response)
     })
@@ -163,12 +163,12 @@ moip.customer.getOne(customerId)
 #### Query
 ```javascript
 // query example
-// See https://dev.moip.com.br/reference#filtros-de-busca
+// See https://dev.yapay.com.br/reference#filtros-de-busca
 const queryObj = {
   limit: 14,
   offset: 0
 }
-moip.customer.query(queryObj)
+yapay.customer.query(queryObj)
     .then((response) => {
         console.log(response)
     })
@@ -179,7 +179,7 @@ moip.customer.query(queryObj)
 
 #### Add a credit card to a Customer
 ```javascript
-moip.customer.createCreditCard(customerId, {
+yapay.customer.createCreditCard(customerId, {
     method: "CREDIT_CARD",
     creditCard: {
         expirationMonth: "05",
@@ -209,7 +209,7 @@ moip.customer.createCreditCard(customerId, {
 
 #### Remove a credit card from a Customer
 ```javascript
-moip.customer.removeCreditCard(creditcardId)
+yapay.customer.removeCreditCard(creditcardId)
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -219,7 +219,7 @@ moip.customer.removeCreditCard(creditcardId)
 
 #### Get all
 ```javascript
-moip.customer.getAll()
+yapay.customer.getAll()
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
@@ -231,7 +231,7 @@ moip.customer.getAll()
 #### Create
 
 ```javascript
-moip.order.create({
+yapay.order.create({
     ownId: '1521656695',
     amount: {
         currency: 'BRL',
@@ -278,7 +278,7 @@ moip.order.create({
 ```
 #### Get
 ```javascript
-moip.order.getOne('ORD-SFGB23X8WAVQ')
+yapay.order.getOne('ORD-SFGB23X8WAVQ')
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
@@ -289,7 +289,7 @@ moip.order.getOne('ORD-SFGB23X8WAVQ')
 #### Query
 ```javascript
 // query example
-// See https://dev.moip.com.br/reference#filtros-de-busca
+// See https://dev.yapay.com.br/reference#filtros-de-busca
 const objQuery = {
   limit: 15,
   offset: 0,
@@ -300,7 +300,7 @@ const objQuery = {
   }
 }
 
-moip.order.query(objQuery)
+yapay.order.query(objQuery)
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
@@ -310,7 +310,7 @@ moip.order.query(objQuery)
 
 #### Get all
 ```javascript
-moip.order.getAll()
+yapay.order.getAll()
     .then((response) => {
         console.log(response)
     }).then((err) => {
@@ -323,7 +323,7 @@ moip.order.getAll()
 #### Create a credit card payment (using credit card hash)
 
 ```javascript
-moip.payment.create('ORD-SFGB23X8WAVQ', {
+yapay.payment.create('ORD-SFGB23X8WAVQ', {
     installmentCount: 1,
     fundingInstrument: {
         method: 'CREDIT_CARD',
@@ -354,7 +354,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 #### Create a Boleto payment
 
 ```javascript
-moip.payment.create('ORD-SFGB23X8WAVQ', {
+yapay.payment.create('ORD-SFGB23X8WAVQ', {
     installmentCount: 1,
     fundingInstrument: {
         method: "BOLETO",
@@ -379,7 +379,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 
 To create a payment with pre-authorization you only have to add a `delayCapture` attribute to any payment method (credit card, boleto or online bank debit). See the example below with a credit card payment:
 ```javascript
-moip.payment.create('ORD-SFGB23X8WAVQ', {
+yapay.payment.create('ORD-SFGB23X8WAVQ', {
     installmentCount: 1,
     delayCapture: true,
     fundingInstrument: {
@@ -412,7 +412,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 
 To create a payment with escrow you only have to add the node `escrow` with an attribute `description`:
 ```javascript
-moip.payment.create('ORD-SFGB23X8WAVQ', {
+yapay.payment.create('ORD-SFGB23X8WAVQ', {
     installmentCount: 1,
     escrow: {
         description: 'Teste escrow'
@@ -447,7 +447,7 @@ moip.payment.create('ORD-SFGB23X8WAVQ', {
 #### Capturing a payment with pre-authorization
 
 ```javascript
-moip.payment.preAuthorizationCapture('PAY-6PYBC8E93M2L')
+yapay.payment.preAuthorizationCapture('PAY-6PYBC8E93M2L')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -458,7 +458,7 @@ moip.payment.preAuthorizationCapture('PAY-6PYBC8E93M2L')
 #### Canceling a payment with pre-authorization
 
 ```javascript
-moip.payment.preAuthorizationCancel('PAY-6PYBC8E93M2L')
+yapay.payment.preAuthorizationCancel('PAY-6PYBC8E93M2L')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -468,7 +468,7 @@ moip.payment.preAuthorizationCancel('PAY-6PYBC8E93M2L')
 
 ### Releasing the escrow
 ```javascript
-moip.escrow.release('ECW-6SCRX0LE4PPW')
+yapay.escrow.release('ECW-6SCRX0LE4PPW')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -478,7 +478,7 @@ moip.escrow.release('ECW-6SCRX0LE4PPW')
 
 #### Get (details of a payment)
 ```javascript
-moip.payment.getOne('PAY-6PYBC8E93M2L')
+yapay.payment.getOne('PAY-6PYBC8E93M2L')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -490,7 +490,7 @@ moip.payment.getOne('PAY-6PYBC8E93M2L')
 
 #### Create a payment refund
 ```javascript
-moip.payment.refunds.create('PAY-3GALBSZIUSBE')
+yapay.payment.refunds.create('PAY-3GALBSZIUSBE')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -500,7 +500,7 @@ moip.payment.refunds.create('PAY-3GALBSZIUSBE')
 
 #### Create a payment partial refund
 ```javascript
-moip.payment.refunds.create('PAY-3GALBSZIUSBE', {
+yapay.payment.refunds.create('PAY-3GALBSZIUSBE', {
     amount: 100
 }).then((response) => {
     console.log(response)
@@ -511,7 +511,7 @@ moip.payment.refunds.create('PAY-3GALBSZIUSBE', {
 
 #### Create an order refund
 ```javascript
-moip.order.refunds.create('ORD-4GALBSZIUSBE')
+yapay.order.refunds.create('ORD-4GALBSZIUSBE')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -521,7 +521,7 @@ moip.order.refunds.create('ORD-4GALBSZIUSBE')
 
 #### Get Refund
 ```javascript
-moip.refund.get('REF-1HI7RBLWH0CZ')
+yapay.refund.get('REF-1HI7RBLWH0CZ')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -531,7 +531,7 @@ moip.refund.get('REF-1HI7RBLWH0CZ')
 
 #### List Payment Refunds
 ```javascript
-moip.payment.refunds.get('PAY-3GALBSZIUSBE')
+yapay.payment.refunds.get('PAY-3GALBSZIUSBE')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -541,7 +541,7 @@ moip.payment.refunds.get('PAY-3GALBSZIUSBE')
 
 #### List Order Refunds
 ```javascript
-moip.order.refunds.get('ORD-4GALBSZIUSBE')
+yapay.order.refunds.get('ORD-4GALBSZIUSBE')
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -553,7 +553,7 @@ moip.order.refunds.get('ORD-4GALBSZIUSBE')
 ## Notification Preferences
 #### Create
 ```javascript
-moip.notification.create({
+yapay.notification.create({
     events: [
         'ORDER.*',
         'PAYMENT.AUTHORIZED',
@@ -570,7 +570,7 @@ moip.notification.create({
 
 #### Get
 ```javascript
-moip.notification.getOne('NPR-1231231231')
+yapay.notification.getOne('NPR-1231231231')
     .then((response) => {
         console.log(response.body)
     })
@@ -578,7 +578,7 @@ moip.notification.getOne('NPR-1231231231')
 
 #### Remove
 ```javascript
-moip.notification.remove('NPR-1231231231')
+yapay.notification.remove('NPR-1231231231')
     .then((response) => {
         console.log(response)
     })
@@ -586,7 +586,7 @@ moip.notification.remove('NPR-1231231231')
 
 #### Get all
 ```javascript
-moip.notification.getAll()
+yapay.notification.getAll()
     .then((response) => {
         console.log(response.body)
     })
@@ -600,7 +600,7 @@ To ask for OAuth permission for a merchant, you need to redirect them to a page 
 
 The complete list of available scopes for permission is available [in our official documentation here](https://dev.wirecard.com.br/v2.0/reference#section-scopes-dispon%C3%ADveis).
 ```javascript
-moip.connect.getAuthorizeUrl({
+yapay.connect.getAuthorizeUrl({
     clientId: 'APP-XXXXXXXXXXXX',
     redirectUri: 'https://url_registered.in.yourapp',
     scopes: ['RECEIVE_FUNDS', 'REFUND']
@@ -616,7 +616,7 @@ moip.connect.getAuthorizeUrl({
 Once the merchant has given you permission, you need to generate their `access token` from the code returned to your `redirect_uri`.
 
 ```javascript
-moip.connect.generateToken({
+yapay.connect.generateToken({
     clientId: 'APP-XXXXXXXXXXXX',
     redirectUri: 'https://url_registered.in.yourapp',
     clientSecret: 'the secret token returned when you created your APP',
@@ -633,7 +633,7 @@ moip.connect.generateToken({
 
 #### Create Multiorder
 ```javascript
-moip.multiorder.create({
+yapay.multiorder.create({
     ownId: 'your_own_id',
     orders: [
         {
@@ -756,7 +756,7 @@ moip.multiorder.create({
 #### Get Multiorder
 
 ```javascript
-moip.multiorder.getOne('MOR-NUU8VMJ0QPUP')
+yapay.multiorder.getOne('MOR-NUU8VMJ0QPUP')
       .then((response) => {
           console.log(response)
       }).catch((err) => {
@@ -769,7 +769,7 @@ moip.multiorder.getOne('MOR-NUU8VMJ0QPUP')
 #### Create Multipayment
 
 ```javascript
-moip.multipayment.create('MOR-NUU8VMJ0QPUP', {
+yapay.multipayment.create('MOR-NUU8VMJ0QPUP', {
     installmentCount: 1,
     fundingInstrument: {
         method: 'CREDIT_CARD',
@@ -800,7 +800,7 @@ moip.multipayment.create('MOR-NUU8VMJ0QPUP', {
 #### Get Multipayment
 
 ```javascript
-moip.multipayment.getOne('MPY-6W6DILA4BZ1X')
+yapay.multipayment.getOne('MPY-6W6DILA4BZ1X')
       .then((response) => {
           console.log(response)
       }).catch((err) => {
@@ -812,9 +812,9 @@ moip.multipayment.getOne('MPY-6W6DILA4BZ1X')
 
 #### Create
 ```javascript
-moip.account.create({
+yapay.account.create({
     email: {
-        address: "dev.moip@labs.moip.com.br"
+        address: "dev.moip@labs.yapay.com.br"
     },
     person: {
         name: "Runscope",
@@ -856,7 +856,7 @@ moip.account.create({
 
 #### Get
 ```javascript
-moip.account.getOne(accountId)
+yapay.account.getOne(accountId)
     .then((response) => {
         console.log(response.body)
     })
@@ -868,8 +868,8 @@ moip.account.getOne(accountId)
 #### Check Existence
 Verify if an account already exists through the `e-mail` or `tax document`
 ```javascript
-moip.account.exists({
-    email: 'integracao@labs.moip.com.br'
+yapay.account.exists({
+    email: 'integracao@labs.yapay.com.br'
     // tax_document: 880.956.367-03
     }).then(() => {
         console.log('If here, the account exists')
@@ -881,7 +881,7 @@ moip.account.exists({
 ## Bank Account
 #### Create
 ```javascript
-moip.bankAccount.create(moipAccountId, {
+yapay.bankAccount.create(moipAccountId, {
     bankNumber: "237",
     agencyNumber: "12345",
     agencyCheckNumber: "0",
@@ -904,7 +904,7 @@ moip.bankAccount.create(moipAccountId, {
 
 #### Get
 ```javascript
-moip.bankAccount.getOne(bankAccountId)
+yapay.bankAccount.getOne(bankAccountId)
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
@@ -914,7 +914,7 @@ moip.bankAccount.getOne(bankAccountId)
 
 #### Get all
 ```javascript
-moip.bankAccount.getAll(moipAccountId)
+yapay.bankAccount.getAll(moipAccountId)
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
@@ -924,7 +924,7 @@ moip.bankAccount.getAll(moipAccountId)
 
 #### Remove
 ```javascript
-moip.bankAccount.remove(bankAccountId)
+yapay.bankAccount.remove(bankAccountId)
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -935,7 +935,7 @@ moip.bankAccount.remove(bankAccountId)
 ## Balance
 #### Get balance
 ```javascript
-moip.balance.getOne()
+yapay.balance.getOne()
     .then((response) => {
         console.log(response)
     }).catch((err) => {
@@ -946,7 +946,7 @@ moip.balance.getOne()
 ## Transfers
 #### Create transfer
 ```javascript
-moip.transfer.create({
+yapay.transfer.create({
     amount: 500,
     transferInstrument: {
         method: "BANK_ACCOUNT",
@@ -975,7 +975,7 @@ moip.transfer.create({
 
 #### Get transfer
 ```javascript
-moip.transfer.getOne(transferId)
+yapay.transfer.getOne(transferId)
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
@@ -985,7 +985,7 @@ moip.transfer.getOne(transferId)
 
 #### Get all transfers
 ```javascript
-moip.transfer.getAll()
+yapay.transfer.getAll()
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
@@ -997,7 +997,7 @@ moip.transfer.getAll()
 
 #### Get
 ```javascript
-moip.webhook.getOne(webhookId)
+yapay.webhook.getOne(webhookId)
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
@@ -1008,14 +1008,14 @@ moip.webhook.getOne(webhookId)
 #### Query
 ```javascript
 //query example
-// See https://dev.moip.com.br/reference#consultar-webhook-enviado
+// See https://dev.yapay.com.br/reference#consultar-webhook-enviado
 const queryObj = {
   limit: 4,
   offset: 0,
   event: 'ORDER.CREATED'
   resourceId: 'the_resource_id'
 }
-moip.webhook.query(queryObj)
+yapay.webhook.query(queryObj)
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
@@ -1025,7 +1025,7 @@ moip.webhook.query(queryObj)
 
 #### Get all
 ```javascript
-moip.webhook.getAll()
+yapay.webhook.getAll()
     .then((response) => {
         console.log(response.body)
     }).catch((err) => {
